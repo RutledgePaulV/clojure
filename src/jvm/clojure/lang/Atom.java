@@ -35,12 +35,17 @@ public Object swap(IFn f) {
 		{
 		Object v = deref();
 		Object newv = f.invoke(v);
-		validate(newv);
-		if(state.compareAndSet(v, newv))
-			{
+		if (newv == v) {
 			notifyWatches(v, newv);
 			return newv;
+		} else {
+			validate(newv);
+			if(state.compareAndSet(v, newv))
+			{
+				notifyWatches(v, newv);
+				return newv;
 			}
+		}
 		}
 }
 
@@ -49,12 +54,17 @@ public Object swap(IFn f, Object arg) {
 		{
 		Object v = deref();
 		Object newv = f.invoke(v, arg);
-		validate(newv);
-		if(state.compareAndSet(v, newv))
-			{
+		if (newv == v) {
 			notifyWatches(v, newv);
 			return newv;
+		} else {
+			validate(newv);
+			if(state.compareAndSet(v, newv))
+			{
+				notifyWatches(v, newv);
+				return newv;
 			}
+		}
 		}
 }
 
@@ -63,12 +73,17 @@ public Object swap(IFn f, Object arg1, Object arg2) {
 		{
 		Object v = deref();
 		Object newv = f.invoke(v, arg1, arg2);
-		validate(newv);
-		if(state.compareAndSet(v, newv))
-			{
+		if (newv == v) {
 			notifyWatches(v, newv);
 			return newv;
+		} else {
+			validate(newv);
+			if(state.compareAndSet(v, newv))
+			{
+				notifyWatches(v, newv);
+				return newv;
 			}
+		}
 		}
 }
 
@@ -77,12 +92,17 @@ public Object swap(IFn f, Object x, Object y, ISeq args) {
 		{
 		Object v = deref();
 		Object newv = f.applyTo(RT.listStar(v, x, y, args));
-		validate(newv);
-		if(state.compareAndSet(v, newv))
-			{
+		if (newv == v) {
 			notifyWatches(v, newv);
 			return newv;
+		} else {
+			validate(newv);
+			if(state.compareAndSet(v, newv))
+			{
+				notifyWatches(v, newv);
+				return newv;
 			}
+		}
 		}
 }
 
@@ -91,12 +111,17 @@ public IPersistentVector swapVals(IFn f) {
 		{
 		Object oldv = deref();
 		Object newv = f.invoke(oldv);
-		validate(newv);
-		if(state.compareAndSet(oldv, newv))
-			{
+		if(newv == oldv) {
 			notifyWatches(oldv, newv);
 			return LazilyPersistentVector.createOwning(oldv, newv);
+		} else {
+			validate(newv);
+			if(state.compareAndSet(oldv, newv))
+			{
+				notifyWatches(oldv, newv);
+				return LazilyPersistentVector.createOwning(oldv, newv);
 			}
+		}
 		}
 }
 
@@ -105,12 +130,17 @@ public IPersistentVector swapVals(IFn f, Object arg) {
 		{
 		Object oldv = deref();
 		Object newv = f.invoke(oldv, arg);
-		validate(newv);
-		if(state.compareAndSet(oldv, newv))
-			{
+		if(newv == oldv) {
 			notifyWatches(oldv, newv);
 			return LazilyPersistentVector.createOwning(oldv, newv);
+		} else {
+			validate(newv);
+			if(state.compareAndSet(oldv, newv))
+			{
+				notifyWatches(oldv, newv);
+				return LazilyPersistentVector.createOwning(oldv, newv);
 			}
+		}
 		}
 }
 
@@ -119,12 +149,17 @@ public IPersistentVector swapVals(IFn f, Object arg1, Object arg2) {
 		{
 		Object oldv = deref();
 		Object newv = f.invoke(oldv, arg1, arg2);
-		validate(newv);
-		if(state.compareAndSet(oldv, newv))
-			{
+		if(newv == oldv) {
 			notifyWatches(oldv, newv);
 			return LazilyPersistentVector.createOwning(oldv, newv);
+		} else {
+			validate(newv);
+			if(state.compareAndSet(oldv, newv))
+			{
+				notifyWatches(oldv, newv);
+				return LazilyPersistentVector.createOwning(oldv, newv);
 			}
+		}
 		}
 }
 
@@ -133,12 +168,17 @@ public IPersistentVector swapVals(IFn f, Object x, Object y, ISeq args) {
 		{
 		Object oldv = deref();
 		Object newv = f.applyTo(RT.listStar(oldv, x, y, args));
-		validate(newv);
-		if(state.compareAndSet(oldv, newv))
-			{
+		if(newv == oldv) {
 			notifyWatches(oldv, newv);
 			return LazilyPersistentVector.createOwning(oldv, newv);
+		} else {
+			validate(newv);
+			if(state.compareAndSet(oldv, newv))
+			{
+				notifyWatches(oldv, newv);
+				return LazilyPersistentVector.createOwning(oldv, newv);
 			}
+		}
 		}
 }
 
